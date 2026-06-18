@@ -1,0 +1,80 @@
+{
+  "name": "typo-hotkey",
+  "version": "0.1.0",
+  "description": "A tiny macOS hotkey app that fixes typos in the focused text field using native spell checking.",
+  "private": true,
+  "license": "MIT",
+  "author": "Shubham Temak",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shubham909090/typo-hotkey.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shubham909090/typo-hotkey/issues"
+  },
+  "homepage": "https://github.com/shubham909090/typo-hotkey#readme",
+  "keywords": [
+    "macos",
+    "electron",
+    "spellcheck",
+    "autocorrect",
+    "typo"
+  ],
+  "type": "module",
+  "main": "dist/electron/main.js",
+  "packageManager": "pnpm@10.32.1",
+  "scripts": {
+    "build": "pnpm build:ts && pnpm build:native",
+    "build:ts": "tsc -p tsconfig.build.json",
+    "build:native": "mkdir -p dist/native && swiftc native/macos/TypoHotkeyHelper.swift -o dist/native/typo-hotkey-helper",
+    "dist:mac": "pnpm build && electron-builder --mac dir zip --arm64",
+    "dev": "pnpm build && electron .",
+    "start": "electron .",
+    "test": "pnpm build:native && vitest run",
+    "test:unit": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "build": {
+    "appId": "com.shubham.typo-hotkey",
+    "productName": "Typo Hotkey",
+    "asar": true,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "dist/native/typo-hotkey-helper",
+        "to": "native/typo-hotkey-helper"
+      },
+      {
+        "from": "assets/tray-icon-44.png",
+        "to": "assets/tray-icon-44.png"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "assets/icon.icns",
+      "identity": null,
+      "target": [
+        "dir",
+        "zip"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.3",
+    "electron": "^42.4.1",
+    "electron-builder": "^26.15.3",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
+  },
+  "dependencies": {
+    "dictionary-en": "^4.0.0",
+    "nspell": "^2.1.5"
+  }
+}
