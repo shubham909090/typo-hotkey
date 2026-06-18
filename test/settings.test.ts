@@ -24,7 +24,7 @@ describe("loadSettings", () => {
 
     const settings = loadSettings(userData);
 
-    expect(settings).toEqual({ hotkey: "Command+\\", language: "en" });
+    expect(settings).toEqual({ hotkey: "Command+;", language: "en" });
     expect(JSON.parse(readFileSync(path.join(userData, "settings.json"), "utf8"))).toEqual(
       settings,
     );
@@ -39,13 +39,13 @@ describe("loadSettings", () => {
 
     const settings = loadSettings(userData);
 
-    expect(settings).toEqual({ hotkey: "Command+\\", language: "en" });
+    expect(settings).toEqual({ hotkey: "Command+;", language: "en" });
     expect(JSON.parse(readFileSync(path.join(userData, "settings.json"), "utf8"))).toEqual(
       settings,
     );
   });
 
-  test("migrates the option-key default hotkey to the command-backslash hotkey", () => {
+  test("migrates the option-key default hotkey to the command-semicolon hotkey", () => {
     const userData = makeUserDataDir();
     writeFileSync(
       path.join(userData, "settings.json"),
@@ -54,13 +54,13 @@ describe("loadSettings", () => {
 
     const settings = loadSettings(userData);
 
-    expect(settings).toEqual({ hotkey: "Command+\\", language: "en" });
+    expect(settings).toEqual({ hotkey: "Command+;", language: "en" });
     expect(JSON.parse(readFileSync(path.join(userData, "settings.json"), "utf8"))).toEqual(
       settings,
     );
   });
 
-  test("migrates the control-period default hotkey to the command-backslash hotkey", () => {
+  test("migrates the control-period default hotkey to the command-semicolon hotkey", () => {
     const userData = makeUserDataDir();
     writeFileSync(
       path.join(userData, "settings.json"),
@@ -69,7 +69,22 @@ describe("loadSettings", () => {
 
     const settings = loadSettings(userData);
 
-    expect(settings).toEqual({ hotkey: "Command+\\", language: "en" });
+    expect(settings).toEqual({ hotkey: "Command+;", language: "en" });
+    expect(JSON.parse(readFileSync(path.join(userData, "settings.json"), "utf8"))).toEqual(
+      settings,
+    );
+  });
+
+  test("migrates the command-backslash default hotkey to the command-semicolon hotkey", () => {
+    const userData = makeUserDataDir();
+    writeFileSync(
+      path.join(userData, "settings.json"),
+      `${JSON.stringify({ hotkey: "Command+\\", language: "en" })}\n`,
+    );
+
+    const settings = loadSettings(userData);
+
+    expect(settings).toEqual({ hotkey: "Command+;", language: "en" });
     expect(JSON.parse(readFileSync(path.join(userData, "settings.json"), "utf8"))).toEqual(
       settings,
     );

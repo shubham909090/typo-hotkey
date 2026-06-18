@@ -7,10 +7,15 @@ export interface AppSettings {
 }
 
 const DEFAULT_SETTINGS: AppSettings = {
-  hotkey: "Command+\\",
+  hotkey: "Command+;",
   language: "en",
 };
-const LEGACY_DEFAULT_HOTKEYS = new Set(["CommandOrControl+Alt+K", "Alt+K", "Control+."]);
+const LEGACY_DEFAULT_HOTKEYS = new Set([
+  "CommandOrControl+Alt+K",
+  "Alt+K",
+  "Control+.",
+  "Command+\\",
+]);
 
 export function loadSettings(userDataPath: string): AppSettings {
   const settingsPath = path.join(userDataPath, "settings.json");

@@ -4,7 +4,7 @@
 
 Typo Hotkey is a tiny macOS menu bar app that fixes spelling mistakes in the text field you are currently typing in.
 
-Press `Command + Backslash`, and it reads the focused editable field, fixes individual misspelled words, and writes the text back.
+Press `Command + ;`, and it reads the focused editable field, fixes individual misspelled words, and writes the text back.
 
 No AI. No grammar rewrite. No network. No tone cleanup. Just typo correction.
 
@@ -19,7 +19,7 @@ So this is a simple slop project: hit one hotkey, use native macOS spelling tool
 ## What It Does
 
 - Runs in the macOS menu bar.
-- Registers a global hotkey: `Command + Backslash`.
+- Registers a global hotkey: `Command + ;`.
 - Reads the currently focused text field.
 - Fixes misspelled word tokens only.
 - Preserves spacing, punctuation, casing, Markdown-ish inline code, URLs, emails, numbers, and code-like identifiers.
@@ -63,7 +63,7 @@ If macOS also shows `typo-hotkey-helper`, enable that too.
 
 1. Open any editable text field.
 2. Type something with typos.
-3. Press `Command + Backslash`.
+3. Press `Command + ;`.
 4. The current field is replaced with the typo-fixed text.
 
 Example:
@@ -84,7 +84,7 @@ For browser search bars, web app prompts, and compose boxes:
 
 1. Click inside the exact input you want to fix.
 2. Make sure the blinking cursor is inside that field.
-3. Press `Command + Backslash`.
+3. Press `Command + ;`.
 
 Examples that should work:
 
@@ -94,7 +94,7 @@ Examples that should work:
 - X/Twitter post composer
 - Slack/Discord/Notion-style browser text areas
 
-If it does nothing, the usual cause is focus: the browser page is focused, but the actual text input is not. Click inside the text once and press `Command + Backslash` again.
+If it does nothing, the usual cause is focus: the browser page is focused, but the actual text input is not. Click inside the text once and press `Command + ;` again.
 
 ## Settings
 
@@ -102,7 +102,7 @@ The settings file is created in Electron user data:
 
 ```json
 {
-  "hotkey": "Command+\\",
+  "hotkey": "Command+;",
   "language": "en"
 }
 ```
@@ -146,7 +146,7 @@ Outputs:
 
 ```text
 release/mac-arm64/Typo Hotkey.app
-release/Typo Hotkey-0.1.1-arm64-mac.zip
+release/Typo Hotkey-0.1.2-arm64-mac.zip
 ```
 
 ## Architecture
