@@ -70,7 +70,7 @@ function createTray(hotkey: string, fixNow: () => Promise<void>): Tray {
   trayIcon.setTemplateImage(false);
   const nextTray = new Tray(trayIcon.resize({ width: 22, height: 22 }));
   nextTray.setTitle("");
-  nextTray.setToolTip(`Typo Hotkey (${hotkey})`);
+  nextTray.setToolTip(`Typo Hotkey (${formatHotkeyLabel(hotkey)})`);
   nextTray.setContextMenu(
     Menu.buildFromTemplate([
       {
@@ -93,6 +93,13 @@ function createTray(hotkey: string, fixNow: () => Promise<void>): Tray {
     ]),
   );
   return nextTray;
+}
+
+function formatHotkeyLabel(hotkey: string): string {
+  return hotkey
+    .replaceAll("CommandOrControl", "Command")
+    .replaceAll("Alt", "Option")
+    .replaceAll("+", " + ");
 }
 
 function resolveHelperPath(): string {

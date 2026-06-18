@@ -1,6 +1,6 @@
 {
   "name": "typo-hotkey",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A tiny macOS hotkey app that fixes typos in the focused text field using native spell checking.",
   "private": true,
   "license": "MIT",

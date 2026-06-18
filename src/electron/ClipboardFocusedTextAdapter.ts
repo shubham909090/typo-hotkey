@@ -5,6 +5,9 @@ import { clipboard } from "electron";
 import type { FocusedTextAdapter, TextSnapshot } from "../core/types.js";
 
 const execFileAsync = promisify(execFile);
+const SELECT_DELAY_MS = 90;
+const COPY_DELAY_MS = 180;
+const PASTE_DELAY_MS = 220;
 
 export class ClipboardFocusedTextAdapter implements FocusedTextAdapter {
   private clipboardBeforeFix: string | null = null;
@@ -15,8 +18,9 @@ export class ClipboardFocusedTextAdapter implements FocusedTextAdapter {
     clipboard.writeText(sentinel);
 
     await keystroke("a", "command down");
+    await delay(SELECT_DELAY_MS);
     await keystroke("c", "command down");
-    await delay(120);
+    await delay(COPY_DELAY_MS);
 
     const copied = clipboard.readText();
     if (copied === sentinel) {
@@ -25,6 +29,7 @@ export class ClipboardFocusedTextAdapter implements FocusedTextAdapter {
       return null;
     }
 
+    clipboard.writeText(this.clipboardBeforeFix);
     return { text: copied };
   }
 
@@ -32,7 +37,7 @@ export class ClipboardFocusedTextAdapter implements FocusedTextAdapter {
     const originalClipboard = this.clipboardBeforeFix;
     clipboard.writeText(next.text);
     await keystroke("v", "command down");
-    await delay(160);
+    await delay(PASTE_DELAY_MS);
 
     if (originalClipboard !== null) {
       clipboard.writeText(originalClipboard);
